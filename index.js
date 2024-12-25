@@ -10,7 +10,7 @@ app.use((req, res, next) => {
                       req.connection.remoteAddress || 
                       req.socket.remoteAddress;
 
-  let ipv6_address = req.socket.address().address;
+  let ipv6_address = req.connection.remoteAddress || req.socket.address().address;
 
   let ipv4 = null;
   let ipv6 = null;
