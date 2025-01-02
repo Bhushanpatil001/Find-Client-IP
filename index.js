@@ -6,9 +6,13 @@ app.set('trust proxy', true)
 
 // Middleware to get IP address
 app.use((req, res, next) => {
+  // console.log("req", req.headers);
+  console.log(req);
+  
   let ipv4_address = req.headers['x-forwarded-for'] || 
                       req.connection.remoteAddress || 
                       req.socket.remoteAddress;
+console.log(req.headers['x-forwarded-by']);
 
   let ipv6_address = req.connection.remoteAddress || req.socket.address().address;
 
@@ -51,6 +55,8 @@ app.use((req, res, next) => {
 
 // Route to send both IPv4 and IPv6 in the JSON response
 app.get('/', (req, res) => {
+  // console.log("req" , req);
+  
   res.json({
     ipv4: req.ipv4 || 'No IPv4 found',
     ipv6: req.ipv6 || 'No IPv6 found'
